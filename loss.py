@@ -91,5 +91,5 @@ def depth_loss(y_pred, y_true):
     w1 = 0.1
     w2 = 1.0
     w3 = 1.0
-    loss = ((w1 * l_depth) + (0.1 * l_edges) + (1.0 * l_ssim))
+    loss = ((w1 * l_depth) + (w2 * l_edges) + (w3 * l_ssim))
     return loss
