@@ -1,18 +1,17 @@
 # Monocular Depth Estimation
-For this project, we want to construct a deep neural network to predict the depth map from a single RGB image in an end-to-end way.The input of the network is RGB images, and after applying the network the output of this system is the corresponding estimated depth maps. The two datasets we are planning to use for training the model, NYU Depth v2 and KITTI, contain RGB images and corresponding ground truth of depth maps. 
+For this project, we want to construct a deep neural network to predict the depth map from a single RGB image in an end-to-end way. The input of the network is RGB images, and after applying the network the output of this system is the corresponding estimated depth maps. The two datasets we are planning to use for training the model, NYU Depth v2 and KITTI, contain RGB images and corresponding ground truth of depth maps. 
 
 ## Usage
 The code sample written by myself for peer review:
 `python train.py`
 
-If you want to run the program, just run `python run_MonocularDepth.ipynb` on Colab that can directly download small NYU v2 dataset. 
+If you want to run the program, just run `python run_MonocularDepth.ipynb` on Colab that can automatically download small NYU v2 dataset. 
 
 ### Code Structure ###
 `python data.py` reads and pre-processes the NYU v2 dataset.  
 `python loss.py` contains loss functions.  
 `python model.py` contains an encoder-decoder model for monocular depth estimation.  
 `python run_MonocularDepth.ipynb` can be run directly on colab, and it will automatically download the dataset.  
-
 
 ## Small test dataset
 The small test dataset for NYU-Depth-V2 can be downloaded [here](https://drive.google.com/file/d/1HFAsEQCDUx0UC63Yv5uKE2Z5Z9cKDMV0/view?usp=sharing).
