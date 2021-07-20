@@ -108,7 +108,6 @@ def main():
     plt.title('train/test losses')
     plt.savefig('losses.png')
     plt.show()
-    
 
     # save model's parameters
     path = 'nyusmall_para.pt'
