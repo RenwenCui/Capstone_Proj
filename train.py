@@ -106,8 +106,9 @@ def main():
     plt.plot(test_avg_losses, 'o-', label='average test loss')
     plt.legend()
     plt.title('train/test losses')
-    plt.show()
     plt.savefig('losses.png')
+    plt.show()
+    
 
     # save model's parameters
     path = 'nyusmall_para.pt'
