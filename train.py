@@ -29,7 +29,10 @@ def main():
     # slice the dataset to mini-batches, each one mini-batch can be sent to a loop.
     train_loader = DataLoader(train_set, batch_size, shuffle=True)
     test_loader = DataLoader(test_set, batch_size, shuffle=False)
-
+    
+    train_avg_losses = []
+    test_avg_losses = []
+    
     # Start training...
     for epoch in range(num_epoch):
         epoch_start_time = time.time()
@@ -89,12 +92,24 @@ def main():
                     output_depth = torch.squeeze(output_depth[-1]).cpu().numpy()
                     plt.imshow( output_depth, cmap='plasma' )
                     plt.show()
-            
+
+            # record average batch losses for training and test sets at one epoch
+            train_avg_losses.append(train_loss/train_loader.__len__())
+            test_avg_losses.append(test_loss/test_loader.__len__())            
+
             # display information about running speed of one epoch and batch loss
             print('Epoch [{}/{}], {:.2f} sec(s), Avg Train loss:{:.5f}, Avg Test loss:{:.5f}'
-                  .format(epoch+1, num_epoch, time.time()-epoch_start_time, train_loss/train_set.__len__(), test_loss/test_set.__len__()))
+                  .format(epoch+1, num_epoch, time.time()-epoch_start_time, train_loss/train_loader.__len__(), test_loss/test_loader.__len__()))
             
-        
+    # plot average batch losses for training and test sets
+    plt.plot(train_avg_losses, 'o-', label='average train loss')
+    plt.plot(test_avg_losses, 'o-', label='average test loss')
+    plt.legend()
+    plt.title('train/test losses')
+    plt.savefig('losses.png')
+    plt.show()
+    
+
     # save model's parameters
     path = 'nyusmall_para.pt'
     torch.save(model.state_dict(), path)
