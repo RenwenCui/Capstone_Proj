@@ -45,8 +45,8 @@ class NYU_TrainAugmentDataset(Dataset):
         # normalize image and depth to [0,1], and then multiply all elements in depth by 1000
         # put all elements in RGB image into the range [0, 1]; put all elements in depth into the range [10, 1000]
         # change the dimensions of the tensor to (C x H x W) that meets the size requirement of input in CNN.
-        image = torch.clamp(torch.from_numpy(np.array(image).reshape(480,640,3))/255,0,1).permute(2, 0, 1)
-        depth = torch.clamp(torch.from_numpy(np.array(depth).reshape(240,320,1))/255*self.maxDepth, self.minDepth, self.maxDepth).permute(2, 0, 1)
+        image = torch.clamp(torch.from_numpy(np.array(image).reshape(480,640,3)).float()/255,0,1).permute(2, 0, 1)
+        depth = torch.clamp(torch.from_numpy(np.array(depth).reshape(240,320,1)).float()/255*self.maxDepth, self.minDepth, self.maxDepth).permute(2, 0, 1)
         # depth normalization
         depth = self.maxDepth/depth
         sample = {'image': image, 'depth': depth}
@@ -76,8 +76,8 @@ class NYU_TestDataset(Dataset):
         # normalize image and depth to [0,1], and then divide all elements in depth by 10
         # put all elements in RGB image into the range [0, 1]; put all elements in depth into the range [10, 1000]
         # change the dimensions of the tensor to (C x H x W) that meets the size requirement of input in CNN.
-        image = torch.clamp(torch.from_numpy(np.asarray(image).reshape(480,640,3))/255,0,1).permute(2, 0, 1)
-        depth = torch.clamp(torch.from_numpy(np.asarray(depth).reshape(240,320,1))/10, self.minDepth, self.maxDepth).permute(2, 0, 1)
+        image = torch.clamp(torch.from_numpy(np.asarray(image).reshape(480,640,3)).float()/255,0,1).permute(2, 0, 1)
+        depth = torch.clamp(torch.from_numpy(np.asarray(depth).reshape(240,320,1)).float()/10, self.minDepth, self.maxDepth).permute(2, 0, 1)
         # depth normalization
         depth = self.maxDepth/depth
         sample = {'image': image, 'depth': depth}
