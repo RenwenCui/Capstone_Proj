@@ -88,8 +88,8 @@ def main():
                     output_depth = test_output.permute(0, 2, 3, 1)
                     # removes all dimensions with a length of one from tensor, it will return a tensor with the size of (H x W)
                     # transfer from tensor to numpy after removing gradients using torch.detach()
-                    # output_depth = torch.squeeze(output_depth[-1]).detach().numpy()
-                    output_depth = torch.squeeze(output_depth[-1]).cpu().numpy()
+                    output_depth = torch.squeeze(output_depth[-1]).cpu().detach().numpy()
+                    plt.figure(1)
                     plt.imshow( output_depth, cmap='plasma' )
                     plt.show()
 
@@ -102,6 +102,7 @@ def main():
                   .format(epoch+1, num_epoch, time.time()-epoch_start_time, train_loss/train_loader.__len__(), test_loss/test_loader.__len__()))
             
     # plot average batch losses for training and test sets
+    plt.figure(2)
     plt.plot(train_avg_losses, 'o-', label='average train loss')
     plt.plot(test_avg_losses, 'o-', label='average test loss')
     plt.legend()
